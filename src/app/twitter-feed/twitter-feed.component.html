@@ -1,0 +1,26 @@
+<style>
+  .feed-item {
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 2px;
+    margin-bottom: 10px;
+    padding: 4px;
+    width: 500px;
+  }
+
+  .feed-item-title {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    font-size: 16px;
+    font-weight: bold;
+  }
+</style>
+
+<div class='feed-item' *ngFor='let tweet of twitterFeed.reverse()'>
+  <div class='feed-item-title'>
+    {{ tweet.user.screen_name }}
+  </div>
+  <div>
+    {{ tweet.user.description }}
+  </div>
+</div>
