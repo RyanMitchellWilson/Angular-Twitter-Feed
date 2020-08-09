@@ -3,6 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { TwitterFeedComponent } from './twitter-feed/twitter-feed.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { TwitterFeedEffects } from './effects/twitter-feed.effects';
 
 @NgModule({
   declarations: [
@@ -10,7 +16,16 @@ import { TwitterFeedComponent } from './twitter-feed/twitter-feed.component';
     TwitterFeedComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers, 
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+      }
+    }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([TwitterFeedEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
